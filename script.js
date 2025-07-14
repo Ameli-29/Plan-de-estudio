@@ -62,6 +62,7 @@ let aprobados = new Set();
 function renderMalla() {
   const contenedor = document.getElementById("mallaContainer");
   contenedor.innerHTML = "";
+
   const ciclos = [...new Set(cursos.map(c => c.ciclo))];
 
   ciclos.forEach(ciclo => {
@@ -75,16 +76,17 @@ function renderMalla() {
       btn.classList.add("curso-btn");
 
       const requisitosCumplidos = curso.requisitos.every(r => aprobados.has(r));
+      const estaAprobado = aprobados.has(curso.codigo);
 
-      if (requisitosCumplidos) {
+      if (requisitosCumplidos || estaAprobado) {
         btn.classList.add("habilitado");
         btn.disabled = false;
-        btn.onclick = () => mostrarCurso(curso);
+        btn.onclick = () => toggleCurso(curso.codigo);
       } else {
         btn.disabled = true;
       }
 
-      if (aprobados.has(curso.codigo)) {
+      if (estaAprobado) {
         btn.classList.add("aprobado");
       }
 
@@ -96,22 +98,28 @@ function renderMalla() {
   });
 }
 
-function mostrarCurso(curso) {
-  const info = document.getElementById("infoCurso");
-  const requisitos = curso.requisitos.length > 0 ? curso.requisitos.join(", ") : "Ninguno";
+function toggleCurso(codigo) {
+  if (aprobados.has(codigo)) {
+    aprobados.delete(codigo);
+  } else {
+    aprobados.add(codigo);
+  }
 
-  info.innerHTML = `
-    <h3>${curso.nombre} (${curso.codigo})</h3>
-    <p><strong>Créditos:</strong> ${curso.creditos}</p>
-    <p><strong>Requisitos:</strong> ${requisitos}</p>
-    <button onclick="aprobarCurso('${curso.codigo}')">Aprobar curso</button>
-  `;
-}
-
-function aprobarCurso(codigo) {
-  aprobados.add(codigo);
+  guardarProgreso();
   renderMalla();
-  document.getElementById("infoCurso").innerHTML = `<p>¡Curso ${codigo} aprobado! La malla se ha actualizado.</p>`;
 }
 
+function guardarProgreso() {
+  localStorage.setItem("cursosAprobados", JSON.stringify([...aprobados]));
+}
+
+function cargarProgreso() {
+  const guardado = localStorage.getItem("cursosAprobados");
+  if (guardado) {
+    aprobados = new Set(JSON.parse(guardado));
+  }
+}
+
+// Carga el progreso guardado al iniciar y renderiza la malla
+cargarProgreso();
 renderMalla();
