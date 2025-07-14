@@ -60,8 +60,9 @@ button.curso-btn.habilitado {
 }
 
 button.curso-btn.aprobado {
-  background-color: #c2185b;
+  background-color: #94618e; /* morado malva */
   color: #fff;
+  text-decoration: line-through;
 }
 
 .info-curso {
