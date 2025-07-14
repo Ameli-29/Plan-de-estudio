@@ -1,0 +1,75 @@
+/* style.css */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f6;
+  color: #333;
+  padding: 20px;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #d63384;
+}
+
+.instrucciones {
+  text-align: center;
+  font-size: 1.1em;
+  margin-bottom: 30px;
+}
+
+.malla {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.ciclo {
+  background-color: #ffe0f0;
+  border-radius: 12px;
+  padding: 15px;
+  width: 280px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.ciclo h2 {
+  text-align: center;
+  color: #b5179e;
+  margin-bottom: 10px;
+}
+
+button.curso-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #f8bbd0;
+  color: #4a1c40;
+  font-weight: bold;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+}
+
+button.curso-btn.habilitado {
+  background-color: #f06292;
+  cursor: pointer;
+}
+
+button.curso-btn.aprobado {
+  background-color: #c2185b;
+  color: #fff;
+}
+
+.info-curso {
+  max-width: 600px;
+  margin: 40px auto 0;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-size: 1em;
+}
